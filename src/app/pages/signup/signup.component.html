@@ -1,9 +1,9 @@
 <app-default-login-layout
-  title="Sign in and start today!t"
+  title="Sign in and start today!"
   primaryBtnText="Signup Now"
   secondaryBtnText="Login Now"
-  (submit)="submit()"
-  (navigate)="navigate()"
+  (submitEvent)="submit()"
+  (navigateEvent)="navigate()"
   [disablePrimaryBtn]="!signupForm.valid">
   <form [formGroup]="signupForm">
     <app-primary-input

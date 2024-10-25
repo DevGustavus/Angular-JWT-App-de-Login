@@ -5,28 +5,66 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100%;
 
   section {
-    height: 100%;
+    min-height: 100vh;
+  }
+
+  .main-section {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
 
-  .main-section {
-    gap: 8px;
+    .container-main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-    flex-grow: 1;
-    background-color: $gray-bg;
+      h1 {
+        margin-top: 15px;
+      }
+    }
   }
 
   .form-section {
-    flex-grow: 0.3;
-    padding: 0 35px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .container-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .main-section {
+    width: 50%;
+    gap: 8px;
+    background-color: $gray-bg;
 
     img {
+      width: 100%;
+    }
+  }
+
+  .form-section {
+    padding: 0 35px;
+    width: 50%;
+    margin-bottom: 20px;
+
+    img {
+      margin-top: 15px;
       margin-bottom: 30px;
     }
 
@@ -63,6 +101,27 @@ main {
           background-color: $gray-bg;
         }
       }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .main-section {
+      width: 40%;
+    }
+
+    .form-section {
+      width: 60%;
+    }
+  }
+
+  // Media query para dispositivos móveis
+  @media (max-width: 768px) {
+    .main-section {
+      display: none;
+    }
+
+    .form-section {
+      width: 100%;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import "../../../assets/scss/variables";
 
 .input-wrapper {
   color: $text-color;
@@ -30,6 +30,12 @@
       background-color: $gray-secondary-bg;
       padding: 12px 0 12px 20px;
       width: 100%;
+      outline: none;
+
+      &:focus {
+        border: 2px solid $primary-color; // Altere "$purple-color" para a cor roxa desejada
+        border-radius: 8px 0 0 8px;
+      }
     }
   }
 }

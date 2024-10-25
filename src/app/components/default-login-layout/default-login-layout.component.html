@@ -1,30 +1,34 @@
 <main>
   <section class="form-section">
-    <img src="./../../../assets/images/logo.svg" alt="logo" />
-    <h2>{{ title }}</h2>
-    <ng-content></ng-content>
-    <div class="btn-wrapper">
-      <button
-        type="button"
-        class="btn-primary"
-        (click)="submit()"
-        [disabled]="disablePrimaryBtn">
-        {{ primaryBtnText }}
-      </button>
-      <div class="divider">
-        <div></div>
-        <span>or</span>
-        <div></div>
+    <div class="container-form">
+      <img src="./../../../assets/images/logo.svg" alt="logo" />
+      <h2>{{ title }}</h2>
+      <ng-content></ng-content>
+      <div class="btn-wrapper">
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="submit()"
+          [disabled]="disablePrimaryBtn">
+          {{ primaryBtnText }}
+        </button>
+        <div class="divider">
+          <div></div>
+          <span>or</span>
+          <div></div>
+        </div>
+        <button type="button" class="btn-secondary" (click)="navigate()">
+          {{ secondaryBtnText }}
+        </button>
       </div>
-      <button type="button" class="btn-secondary" (click)="navigate()">
-        {{ secondaryBtnText }}
-      </button>
     </div>
   </section>
   <section class="main-section">
-    <h1>You Should, MoveIt!</h1>
-    <img
-      src="./../../../assets/images/main-illustration.svg"
-      alt="main-illustration" />
+    <div class="container-main">
+      <h1>You Should, MoveIt!</h1>
+      <img
+        src="./../../../assets/images/main-illustration.svg"
+        alt="main-illustration" />
+    </div>
   </section>
 </main>
