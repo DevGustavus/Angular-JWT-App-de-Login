@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
+import { AuthGuardService } from './core/services/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,7 @@ export const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     title: 'Users | APP',
+    canActivate: [AuthGuardService],
   },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
