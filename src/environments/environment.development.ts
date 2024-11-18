@@ -1,3 +1,3 @@
 export const environment = {
-  API_dsv: 'http://localhost:8080',
+  api: 'http://localhost:8080',
 };

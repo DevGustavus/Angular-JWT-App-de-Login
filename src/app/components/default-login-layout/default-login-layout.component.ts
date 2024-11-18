@@ -11,7 +11,6 @@ export class DefaultLoginLayoutComponent {
   @Input() title: string = '';
   @Input() primaryBtnText: string = '';
   @Input() secondaryBtnText: string = '';
-  @Input() disablePrimaryBtn: boolean = true;
 
   @Output() submitEvent = new EventEmitter();
   @Output() navigateEvent = new EventEmitter();

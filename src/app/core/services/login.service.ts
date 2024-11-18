@@ -8,13 +8,14 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root',
 })
 export class LoginService {
-  apiUrl: string = `${environment.API_dsv}/auth`;
+  apiUrl: string = `${environment.api}/auth`;
+  proxyConnection: string = '/auth'; //Para localHost
 
   constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.httpClient
-      .post<LoginResponse>(this.apiUrl + '/login', { email, password })
+      .post<LoginResponse>(this.proxyConnection + '/login', { email, password })
       .pipe(
         tap(value => {
           sessionStorage.setItem('auth-token', value.token);
@@ -29,7 +30,11 @@ export class LoginService {
     password: string
   ): Observable<LoginResponse> {
     return this.httpClient
-      .post<LoginResponse>(this.apiUrl + '/register', { name, email, password })
+      .post<LoginResponse>(this.proxyConnection + '/register', {
+        name,
+        email,
+        password,
+      })
       .pipe(
         tap(value => {
           sessionStorage.setItem('auth-token', value.token);
