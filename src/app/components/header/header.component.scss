@@ -1,0 +1,35 @@
+@import "../../../assets/scss/variables";
+
+.container-header {
+  background-color: #ff9cc5;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #ffb4d3;
+  transition: background-color 0.3s;
+
+  &.user-info:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    width: 35px;
+  }
+}

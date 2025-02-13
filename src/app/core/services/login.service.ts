@@ -18,8 +18,10 @@ export class LoginService {
       .post<LoginResponse>(this.proxyConnection + '/login', { email, password })
       .pipe(
         tap(value => {
-          sessionStorage.setItem('auth-token', value.token);
+          sessionStorage.setItem('id', value.id);
           sessionStorage.setItem('username', value.name);
+          sessionStorage.setItem('email', value.email);
+          sessionStorage.setItem('auth-token', value.token);
         })
       );
   }

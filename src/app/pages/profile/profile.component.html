@@ -1,0 +1,25 @@
+<div class="container-main">
+  <app-header></app-header>
+
+  <div>
+    <div></div>
+    <div>
+      <div class="presentaion">
+        <div class="icon-container">
+          <lucide-icon
+            [name]="userPlus"
+            [size]="24"
+            class="my-icon"></lucide-icon>
+        </div>
+        <h2>{{userLogged!.name}}</h2>
+      </div>
+
+      <div class="info-body">
+        <p><strong>ID:</strong> {{ userLogged!.id }}</p>
+        <p><strong>Email:</strong> {{ userLogged!.email }}</p>
+        <p><strong>Name:</strong> {{ userLogged!.name }}</p>
+        <p><strong>Role:</strong> {{ userLogged!.role }}</p>
+      </div>
+    </div>
+  </div>
+</div>

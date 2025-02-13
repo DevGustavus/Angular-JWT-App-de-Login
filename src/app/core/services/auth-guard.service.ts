@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -25,8 +26,10 @@ export class AuthGuardService implements CanActivate {
     const authToken = sessionStorage.getItem('auth-token');
 
     if (authToken) {
+      console.log('AuthGuard: Autorizado');
       return true;
     } else {
+      console.log('AuthGuard: Não autorizado, redirecionando para login');
       this.router.navigate(['/login']);
       return false;
     }

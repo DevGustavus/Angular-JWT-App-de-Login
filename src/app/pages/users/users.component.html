@@ -1,1 +1,28 @@
-<p>users works!</p>
+<div class="container-main">
+  <app-header></app-header>
+  <div class="user-list">
+    <app-user-table (rowClicked)="onUserRowClicked($event)"></app-user-table>
+  </div>
+</div>
+
+<dialog #userModal>
+  <div class="modal-header">
+    <div class="icon-container">
+      <lucide-icon [name]="alertIcon" [size]="34" class="my-icon"></lucide-icon>
+    </div>
+    <h2>User Details</h2>
+  </div>
+  <div class="modal-body">
+    <div class="info-body">
+      <p><strong>ID:</strong> {{ userSelected?.id }}</p>
+      <p><strong>Email:</strong> {{ userSelected?.email }}</p>
+      <p><strong>Name:</strong> {{ userSelected?.name }}</p>
+      <p><strong>Role:</strong> {{ userSelected?.role }}</p>
+    </div>
+    <div>
+      <button class="btn-primary" type="button" (click)="closeModal()">
+        Close
+      </button>
+    </div>
+  </div>
+</dialog>

@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     title: 'Home | APP',
   },
@@ -25,7 +27,11 @@ export const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     title: 'Users | APP',
-    canActivate: [AuthGuardService],
+  },
+  {
+    path: '',
+    component: ProfileComponent,
+    title: 'Profile | APP',
   },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
