@@ -1,25 +1,62 @@
 <div class="container-main">
   <app-header></app-header>
 
-  <div>
-    <div></div>
-    <div>
+  <div class="container-profile">
+    <div class="profile-info">
       <div class="presentaion">
-        <div class="icon-container">
+        <div class="container-icon">
           <lucide-icon
             [name]="userPlus"
             [size]="24"
             class="my-icon"></lucide-icon>
         </div>
-        <h2>{{userLogged!.name}}</h2>
+        <h2>fdfdfdf</h2>
       </div>
 
-      <div class="info-body">
-        <p><strong>ID:</strong> {{ userLogged!.id }}</p>
-        <p><strong>Email:</strong> {{ userLogged!.email }}</p>
-        <p><strong>Name:</strong> {{ userLogged!.name }}</p>
-        <p><strong>Role:</strong> {{ userLogged!.role }}</p>
-      </div>
+      <form class="info-body">
+        <div>
+          <label for="id"><strong>ID:</strong></label>
+          <input
+            class="btn-primary"
+            type="text"
+            id="id"
+            [value]="userLogged?.id || '12345'"
+            disabled />
+        </div>
+        <div>
+          <label for="email"><strong>Email:</strong></label>
+          <input
+            class="btn-primary"
+            type="email"
+            id="email"
+            [value]="userLogged?.email || 'example@example.com'"
+            [disabled]="!isEditing" />
+        </div>
+        <div>
+          <label for="name"><strong>Name:</strong></label>
+          <input
+            class="btn-primary"
+            type="text"
+            id="name"
+            [value]="userLogged?.name || 'Example User'"
+            [disabled]="!isEditing" />
+        </div>
+        <div>
+          <label for="role"><strong>Role:</strong></label>
+          <input
+            class="btn-primary"
+            type="text"
+            id="role"
+            [value]="userLogged?.role || 'user'"
+            [disabled]="!isEditing" />
+        </div>
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="isEditing = !isEditing">
+          {{ isEditing ? 'Save' : 'Edit' }}
+        </button>
+      </form>
     </div>
   </div>
 </div>

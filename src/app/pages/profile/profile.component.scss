@@ -1,4 +1,5 @@
 @import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
 
 .container-main {
   display: flex;
@@ -6,4 +7,74 @@
   min-height: 100vh;
   min-width: 100%;
   background-color: $gray-secondary-bg;
+
+  .container-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto 0;
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 800px;
+      height: 600px;
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid #b1b1b1;
+      background-color: #ebebeb;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+
+      .presentaion {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        gap: 20px;
+
+        .container-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #474747;
+          border-radius: 100%;
+          width: 120px;
+          height: 120px;
+          background-color: #e1e1e1;
+        }
+      }
+
+      .info-body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #b1b1b1;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #f1f1f1;
+
+            &:disabled {
+              background-color: #e0e0e0;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
 }

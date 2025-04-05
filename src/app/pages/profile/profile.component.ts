@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   ) {}
   readonly userPlus = UserPlus;
   userLogged: User | null = null;
+  isEditing: boolean = false;
 
   ngOnInit(): void {
     const id = this.localHostService.getSessionStorageItem('id');
