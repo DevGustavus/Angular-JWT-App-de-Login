@@ -21,6 +21,7 @@ export class LoginService {
           sessionStorage.setItem('id', value.id);
           sessionStorage.setItem('username', value.name);
           sessionStorage.setItem('email', value.email);
+          sessionStorage.setItem('role', value.role);
           sessionStorage.setItem('auth-token', value.token);
         })
       );

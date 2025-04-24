@@ -10,45 +10,44 @@
             [size]="24"
             class="my-icon"></lucide-icon>
         </div>
-        <h2>fdfdfdf</h2>
+        <h2>{{ userLogged.name || 'User' }}</h2>
       </div>
 
       <form class="info-body">
         <div>
           <label for="id"><strong>ID:</strong></label>
           <input
-            class="btn-primary"
             type="text"
             id="id"
-            [value]="userLogged?.id || '12345'"
+            [placeholder]="userLogged.id || '12345'"
             disabled />
         </div>
         <div>
           <label for="email"><strong>Email:</strong></label>
           <input
-            class="btn-primary"
             type="email"
             id="email"
-            [value]="userLogged?.email || 'example@example.com'"
+            [placeholder]="userLogged.email || 'example@example.com'"
             [disabled]="!isEditing" />
         </div>
         <div>
           <label for="name"><strong>Name:</strong></label>
           <input
-            class="btn-primary"
             type="text"
             id="name"
-            [value]="userLogged?.name || 'Example User'"
+            [placeholder]="userLogged.name || 'Example User'"
             [disabled]="!isEditing" />
         </div>
         <div>
           <label for="role"><strong>Role:</strong></label>
-          <input
-            class="btn-primary"
-            type="text"
+          <select
             id="role"
-            [value]="userLogged?.role || 'user'"
-            [disabled]="!isEditing" />
+            name="role"
+            [disabled]="!isEditing"
+            [(ngModel)]="userLogged.role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
         <button
           class="btn-primary"
