@@ -6,11 +6,13 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  OnInit,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { User } from '../../core/models/user.model';
 import { LucideAngularModule, Trash2 } from 'lucide-angular';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-user-table',
@@ -20,15 +22,21 @@ import { LucideAngularModule, Trash2 } from 'lucide-angular';
     MatTableModule,
     MatPaginatorModule,
     LucideAngularModule,
+    MatExpansionModule,
   ],
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss'],
 })
-export class UserTableComponent implements AfterViewInit {
+export class UserTableComponent implements AfterViewInit, OnInit {
   @Output() rowClicked = new EventEmitter<User>();
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  isMobile: boolean = false;
   readonly trash2 = Trash2;
+
+  ngOnInit() {
+    this.isMobile = window.innerWidth <= 768;
+  }
 
   users: User[] = [
     {

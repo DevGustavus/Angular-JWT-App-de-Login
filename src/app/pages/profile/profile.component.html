@@ -13,7 +13,7 @@
         <h2>{{ userLogged.name || 'User' }}</h2>
       </div>
 
-      <form class="info-body">
+      <form class="info-body" [formGroup]="profileForm!">
         <div>
           <label for="id"><strong>ID:</strong></label>
           <input
@@ -27,34 +27,33 @@
           <input
             type="email"
             id="email"
-            [placeholder]="userLogged.email || 'example@example.com'"
-            [disabled]="!isEditing" />
+            formControlName="email"
+            [placeholder]="userLogged.email || 'example@example.com'" />
         </div>
         <div>
           <label for="name"><strong>Name:</strong></label>
           <input
             type="text"
             id="name"
-            [placeholder]="userLogged.name || 'Example User'"
-            [disabled]="!isEditing" />
+            formControlName="name"
+            [placeholder]="userLogged.name || 'Example User'" />
         </div>
         <div>
           <label for="role"><strong>Role:</strong></label>
-          <select
-            id="role"
-            name="role"
-            [disabled]="!isEditing"
-            [(ngModel)]="userLogged.role">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+          <select id="role" name="role" formControlName="role">
+            <option [value]="1">User</option>
+            <option [value]="2">Admin</option>
           </select>
         </div>
-        <button
-          class="btn-primary"
-          type="button"
-          (click)="isEditing = !isEditing">
-          {{ isEditing ? 'Save' : 'Edit' }}
-        </button>
+        @if (isEditing) {
+          <button class="btn-primary" type="button" (click)="onSave()">
+            Save
+          </button>
+        } @else {
+          <button class="btn-primary" type="button" (click)="onEdit()">
+            Edit
+          </button>
+        }
       </form>
     </div>
   </div>

@@ -9,7 +9,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     title: 'Home | APP',
   },
@@ -29,7 +29,7 @@ export const routes: Routes = [
     title: 'Users | APP',
   },
   {
-    path: '',
+    path: 'profile',
     component: ProfileComponent,
     title: 'Profile | APP',
   },

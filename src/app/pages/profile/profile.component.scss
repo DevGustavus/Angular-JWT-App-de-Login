@@ -1,5 +1,5 @@
-@import "../../../assets/scss/variables";
-@import "../../../assets/scss/button";
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/button';
 
 .container-main {
   display: flex;
@@ -26,7 +26,9 @@
       border-radius: 20px;
       border: 1px solid #b1b1b1;
       background-color: #ebebeb;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        0 6px 20px rgba(0, 0, 0, 0.1);
 
       .presentaion {
         display: flex;
@@ -65,7 +67,8 @@
           flex-direction: column;
           gap: 5px;
 
-          input, select {
+          input,
+          select {
             width: 100%;
             padding: 5px;
             border: 1px solid #b1b1b1;
@@ -81,6 +84,16 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container-profile {
+    padding: 0 10px;
+
+    .profile-info {
+      width: 100% !important;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "../../../assets/scss/variables";
+@import '../../../assets/scss/variables';
 
 .container-main {
   width: 900px;
@@ -10,7 +10,8 @@
     border-radius: 10px;
     overflow: hidden;
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: center;
     }
@@ -36,5 +37,11 @@
 
   &:hover {
     color: red;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-main {
+    width: 100%;
   }
 }

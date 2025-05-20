@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) {}
 
-  navigateToProfile(): void {
+  navigateToStart(): void {
     this.router.navigate(['']);
+  }
+
+  navigateToProfile(): void {
+    this.router.navigate(['profile']);
   }
 }
