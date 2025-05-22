@@ -11,7 +11,6 @@ import {
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../../core/services/login.service';
-import { SignupForm } from '../../core/interfaces/signupForm';
 import { ToastrService } from 'ngx-toastr';
 import { noWhitespaceValidator } from '../../core/utils/noWhitespaceValidator';
 

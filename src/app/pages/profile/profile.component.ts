@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
