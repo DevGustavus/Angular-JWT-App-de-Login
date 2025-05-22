@@ -6,6 +6,7 @@
   (navigateEvent)="navigate()">
   <form [formGroup]="loginForm">
     <app-primary-input
+      [formSubmitted]="formSubmitted"
       formControlName="email"
       inputName="email"
       type="email"
@@ -14,6 +15,7 @@
       <img src="./../../../assets/images/email-icon.svg" alt="email-icon" />
     </app-primary-input>
     <app-primary-input
+      [formSubmitted]="formSubmitted"
       formControlName="password"
       inputName="password"
       type="password"

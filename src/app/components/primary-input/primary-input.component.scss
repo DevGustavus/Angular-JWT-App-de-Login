@@ -1,4 +1,4 @@
-@import "../../../assets/scss/variables";
+@import '../../../assets/scss/variables';
 
 .input-wrapper {
   color: $text-color;
@@ -33,9 +33,13 @@
       outline: none;
 
       &:focus {
-        border: 2px solid $primary-color; // Altere "$purple-color" para a cor roxa desejada
+        border: 2px solid $primary-color;
         border-radius: 8px 0 0 8px;
       }
     }
+  }
+
+  .error-message {
+    color: #ff0000;
   }
 }

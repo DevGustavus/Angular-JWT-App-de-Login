@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { Component, forwardRef, Input, Optional, Self } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 type InputTypes = 'text' | 'email' | 'password';
 
@@ -10,28 +14,29 @@ type InputTypes = 'text' | 'email' | 'password';
   selector: 'app-primary-input',
   standalone: true,
   imports: [ReactiveFormsModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PrimaryInputComponent),
-      multi: true,
-    },
-  ],
   templateUrl: './primary-input.component.html',
   styleUrl: './primary-input.component.scss',
 })
-export class PrimaryInputComponent {
+export class PrimaryInputComponent implements ControlValueAccessor {
   @Input() type: InputTypes = 'text';
   @Input() placeholder: string = '';
   @Input() label: string = '';
   @Input() inputName: string = '';
+  @Input() formSubmitted: boolean = false;
 
   value: string = '';
   onChange: any = () => {};
   onTouched: any = () => {};
 
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
   onInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
+    this.value = value;
     this.onChange(value);
   }
 

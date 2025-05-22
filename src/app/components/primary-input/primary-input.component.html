@@ -5,9 +5,36 @@
       [type]="type"
       [placeholder]="placeholder"
       [value]="value"
-      (input)="onInput($event)" />
+      (input)="onInput($event)"
+      (blur)="onTouched()" />
     <div class="icon">
       <ng-content></ng-content>
     </div>
   </div>
+
+  @if (
+    (ngControl.control?.touched || formSubmitted) &&
+    (ngControl.control?.invalid ||
+      (ngControl.name === 'passwordConfirm' &&
+        ngControl.control?.parent?.errors?.['passwordMismatch']))
+  ) {
+    <div class="error-message">
+      @if (ngControl.control?.errors?.['required']) {
+        <small>*Campo obrigatório<br /></small>
+      } @else if (ngControl.control?.errors?.['email']) {
+        <small>Email inválido<br /></small>
+      } @else if (ngControl.control?.errors?.['minlength']) {
+        <small>*Mínimo de 6 caracteres<br /></small>
+      }
+      @if (
+        ngControl.name === 'passwordConfirm' &&
+        ngControl.control?.parent?.errors?.['passwordMismatch']
+      ) {
+        <small>*As senhas não coincidem<br /></small>
+      }
+      @if (ngControl.control?.errors?.['whitespace']) {
+        <small>*O campo não pode conter apenas espaços<br /></small>
+      }
+    </div>
+  }
 </div>

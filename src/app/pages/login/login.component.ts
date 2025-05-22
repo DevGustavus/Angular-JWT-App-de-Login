@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
   loginForm!: FormGroup<LoginForm>;
+  formSubmitted = false;
 
   constructor(
     private router: Router,
@@ -33,14 +34,18 @@ export class LoginComponent {
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
   submit(): void {
+    this.formSubmitted = true;
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
     this.loginService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe({
