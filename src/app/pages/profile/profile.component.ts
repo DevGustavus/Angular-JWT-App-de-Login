@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../core/services/user.service';
+import { noWhitespaceValidator } from '../../core/utils/noWhitespaceValidator';
 
 @Component({
   selector: 'app-profile',
@@ -57,11 +58,11 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       email: [
         { value: this.userLogged.email, disabled: true },
-        [Validators.required, Validators.email],
+        [Validators.required, Validators.email, noWhitespaceValidator],
       ],
       name: [
         { value: this.userLogged.name, disabled: true },
-        [Validators.required],
+        [Validators.required, noWhitespaceValidator],
       ],
       role: [
         { value: Number(this.userLogged.role), disabled: true },

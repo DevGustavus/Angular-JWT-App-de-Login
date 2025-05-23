@@ -5,10 +5,16 @@
     </div>
   </a>
 
-  <a (click)="navigateToProfile()">
-    <div class="user-info">
-      <img src="./../../assets/images/user.svg" alt="user" />
-      <h2>Profile</h2>
-    </div>
-  </a>
+  <div class="container-profile">
+    <a (click)="navigateToProfile()">
+      <div class="user-info">
+        <img src="./../../assets/images/user.svg" alt="user" />
+        <h2>Profile</h2>
+      </div>
+    </a>
+
+    <button class="container-icon" type="button" (click)="logout()">
+      <lucide-icon [name]="logOut" [size]="30" class="my-icon"></lucide-icon>
+    </button>
+  </div>
 </div>
