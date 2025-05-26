@@ -8,14 +8,11 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root',
 })
 export class LoginService {
-  apiUrl: string = `${environment.api}/auth`;
-  proxyConnection: string = '/auth'; //Para localHost
-
   constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.httpClient
-      .post<LoginResponse>(this.proxyConnection + '/login', { email, password })
+      .post<LoginResponse>('/auth/login', { email, password })
       .pipe(
         tap(value => {
           sessionStorage.setItem('id', value.id);
@@ -33,7 +30,7 @@ export class LoginService {
     password: string
   ): Observable<LoginResponse> {
     return this.httpClient
-      .post<LoginResponse>(this.proxyConnection + '/register', {
+      .post<LoginResponse>('/auth/register', {
         name,
         email,
         password,

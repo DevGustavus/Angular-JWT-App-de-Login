@@ -27,11 +27,13 @@ export const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     title: 'Users | APP',
+    canActivate: [AuthGuardService],
   },
   {
     path: 'profile',
     component: ProfileComponent,
     title: 'Profile | APP',
+    canActivate: [AuthGuardService],
   },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];

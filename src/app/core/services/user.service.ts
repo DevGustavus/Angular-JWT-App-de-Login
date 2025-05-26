@@ -9,22 +9,19 @@ import { LocalHostService } from './local-host.service';
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl: string = `${environment.api}/user`;
-  proxyConnection: string = '/user'; // Para localHost
-
   constructor(
     private httpClient: HttpClient,
     private localHostService: LocalHostService
   ) {}
 
   getAllUsers(): Observable<HttpResponse<User[]>> {
-    return this.httpClient.get<User[]>(this.proxyConnection + '/all', {
+    return this.httpClient.get<User[]>('/user/all', {
       observe: 'response',
     });
   }
 
   getUserById(id: string): Observable<HttpResponse<User>> {
-    return this.httpClient.get<User>(this.proxyConnection + '/' + id, {
+    return this.httpClient.get<User>('/user/' + id, {
       observe: 'response',
     });
   }
@@ -36,7 +33,7 @@ export class UserService {
       : undefined;
 
     return this.httpClient.put<User>(
-      this.proxyConnection + '/update/' + user.id,
+      '/user/update/' + user.id,
       {
         name: user.name,
         email: user.email,

@@ -1,12 +1,14 @@
 {
-  "/auth": {
+  "/proxy/auth": {
     "target": "http://localhost:8080/",
     "secure": false,
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": { "^/proxy/auth": "/auth" }
   },
-  "/user": {
+  "/proxy/user": {
     "target": "http://localhost:8080/",
     "secure": false,
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": { "^/proxy/user": "/user" }
   }
 }

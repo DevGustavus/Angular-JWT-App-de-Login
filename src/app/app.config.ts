@@ -5,12 +5,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { apiPrefixInterceptor } from './core/interceptors/httpConnection.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
     provideToastr(),
-    provideHttpClient(withInterceptors([loadingInterceptor])),
+    provideHttpClient(
+      withInterceptors([apiPrefixInterceptor, loadingInterceptor])
+    ),
   ],
 };
