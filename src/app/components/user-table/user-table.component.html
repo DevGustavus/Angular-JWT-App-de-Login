@@ -24,7 +24,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let user">
-          <button type="button">
+          <button
+            type="button"
+            (click)="deleteUser(user); $event.stopPropagation()">
             <lucide-icon
               [name]="trash2"
               [size]="20"
@@ -59,7 +61,7 @@
               <p><strong>ID:</strong> {{ user.id }}</p>
               <p><strong>Email:</strong> {{ user.email }}</p>
               <p><strong>Role:</strong> {{ user.role }}</p>
-              <button type="button">
+              <button type="button" (click)="deleteUser(user)">
                 <lucide-icon [name]="trash2" [size]="20" class="my-icon">
                 </lucide-icon>
               </button>

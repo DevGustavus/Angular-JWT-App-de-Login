@@ -7,12 +7,14 @@ import {
   Output,
   EventEmitter,
   OnInit,
+  inject,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { User } from '../../core/models/user.model';
 import { LucideAngularModule, Trash2 } from 'lucide-angular';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-user-table',
@@ -29,79 +31,34 @@ import { MatExpansionModule } from '@angular/material/expansion';
 })
 export class UserTableComponent implements AfterViewInit, OnInit {
   @Output() rowClicked = new EventEmitter<User>();
-  displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
+  users: User[] = [];
   isMobile: boolean = false;
   readonly trash2 = Trash2;
 
+  dataSource = new MatTableDataSource<User>([]);
+
+  private readonly userService = inject(UserService);
+
   ngOnInit() {
     this.isMobile = window.innerWidth <= 768;
+
+    this.userService.getAllUsers().subscribe({
+      next: response => {
+        this.users = response.body ?? [];
+        this.dataSource.data = this.users;
+
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+        }
+      },
+      error: err => {
+        console.error('Erro ao buscar usuários', err);
+      },
+    });
   }
-
-  users: User[] = [
-    {
-      id: '1',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      role: 'admin',
-    },
-    {
-      id: '2',
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      role: 'user',
-    },
-    {
-      id: '3',
-      name: 'Alice Johnson',
-      email: 'alice.johnson@example.com',
-      role: 'user',
-    },
-    {
-      id: '4',
-      name: 'Bob Brown',
-      email: 'bob.brown@example.com',
-      role: 'user',
-    },
-    {
-      id: '5',
-      name: 'Charlie Davis',
-      email: 'charlie.davis@example.com',
-      role: 'admin',
-    },
-    {
-      id: '6',
-      name: 'Diana Evans',
-      email: 'diana.evans@example.com',
-      role: 'user',
-    },
-    {
-      id: '7',
-      name: 'Eve Foster',
-      email: 'eve.foster@example.com',
-      role: 'user',
-    },
-    {
-      id: '8',
-      name: 'Frank Green',
-      email: 'frank.green@example.com',
-      role: 'admin',
-    },
-    {
-      id: '9',
-      name: 'Grace Harris',
-      email: 'grace.harris@example.com',
-      role: 'user',
-    },
-    {
-      id: '10',
-      name: 'Henry Irving',
-      email: 'henry.irving@example.com',
-      role: 'user',
-    },
-  ];
-
-  dataSource = new MatTableDataSource<User>(this.users);
 
   onRowClicked(row: User): void {
     this.rowClicked.emit(row);
@@ -109,5 +66,19 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  deleteUser(user: User): void {
+    if (confirm(`Are you sure you want to delete user ${user.name}?`)) {
+      this.userService.deleteUserById(user.id).subscribe({
+        next: () => {
+          this.users = this.users.filter(u => u.id !== user.id);
+          this.dataSource.data = this.users;
+        },
+        error: err => {
+          console.error('Error deleting user', err);
+        },
+      });
+    }
   }
 }

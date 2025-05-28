@@ -20,8 +20,8 @@ export class HeaderComponent {
     private toast: ToastrService
   ) {}
 
-  navigateToStart(): void {
-    this.router.navigate(['']);
+  navigateToUsers(): void {
+    this.router.navigate(['users']);
   }
 
   navigateToProfile(): void {

@@ -13,23 +13,33 @@ export class UserService {
     private localHostService: LocalHostService
   ) {}
 
+  private getAuthHeaders(): HttpHeaders | undefined {
+    const token = this.localHostService.getSessionStorageItem('auth-token');
+    return token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : undefined;
+  }
+
   getAllUsers(): Observable<HttpResponse<User[]>> {
+    const headers = this.getAuthHeaders();
+
     return this.httpClient.get<User[]>('/user/all', {
+      headers,
       observe: 'response',
     });
   }
 
   getUserById(id: string): Observable<HttpResponse<User>> {
+    const headers = this.getAuthHeaders();
+
     return this.httpClient.get<User>('/user/' + id, {
+      headers,
       observe: 'response',
     });
   }
 
   updateUser(user: User): Observable<HttpResponse<User>> {
-    const token = this.localHostService.getSessionStorageItem('auth-token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : undefined;
+    const headers = this.getAuthHeaders();
 
     return this.httpClient.put<User>(
       '/user/update/' + user.id,
@@ -43,5 +53,14 @@ export class UserService {
         observe: 'response',
       }
     );
+  }
+
+  deleteUserById(id: string): Observable<HttpResponse<void>> {
+    const headers = this.getAuthHeaders();
+
+    return this.httpClient.delete<void>('/user/delete/' + id, {
+      headers,
+      observe: 'response',
+    });
   }
 }
