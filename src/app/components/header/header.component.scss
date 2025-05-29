@@ -50,3 +50,25 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .container-header {
+    padding: 10px;
+
+    .container-logo {
+      img {
+        width: 130px;
+      }
+    }
+
+    .container-profile {
+      gap: 10px;
+
+      .user-info {
+        h2 {
+          display: none;
+        }
+      }
+    }
+  }
+}

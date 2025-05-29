@@ -35,6 +35,10 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
   users: User[] = [];
+  visibleUsers: User[] = []; // visível no mobile
+  loadIndex = 0;
+  loadAmount = 10;
+
   isMobile: boolean = false;
   readonly trash2 = Trash2;
 
@@ -48,11 +52,15 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.userService.getAllUsers().subscribe({
       next: response => {
         this.users = response.body ?? [];
-        this.dataSource.data = this.users;
 
-        if (this.paginator) {
-          this.dataSource.paginator = this.paginator;
+        // para mobile
+        if (this.isMobile) {
+          this.loadIndex = this.loadAmount;
+          this.visibleUsers = this.users.slice(0, this.loadAmount);
         }
+
+        // para desktop (com tabela e paginação)
+        this.dataSource.data = this.users;
       },
       error: err => {
         console.error('Erro ao buscar usuários', err);
@@ -80,5 +88,11 @@ export class UserTableComponent implements AfterViewInit, OnInit {
         },
       });
     }
+  }
+
+  loadMoreUsers(): void {
+    const nextIndex = this.loadIndex + this.loadAmount;
+    this.visibleUsers = this.users.slice(0, nextIndex);
+    this.loadIndex = nextIndex;
   }
 }

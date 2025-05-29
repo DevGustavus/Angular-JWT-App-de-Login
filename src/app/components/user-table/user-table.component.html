@@ -45,12 +45,9 @@
 
     <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
   } @else {
-    <div>
-      <mat-accordion
-        class="example-headers-align"
-        multi
-        class="scrollable-list">
-        @for (user of users; track $index) {
+    <div class="scrollable-list">
+      <mat-accordion class="example-headers-align" multi>
+        @for (user of visibleUsers; track $index) {
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>{{ user.name }}</mat-panel-title>
@@ -71,7 +68,9 @@
       </mat-accordion>
     </div>
     <div class="box-add-users">
-      <span>+</span>
+      <button type="button" class="btn-add" (click)="loadMoreUsers()">
+        <span>+</span>
+      </button>
     </div>
   }
 </div>

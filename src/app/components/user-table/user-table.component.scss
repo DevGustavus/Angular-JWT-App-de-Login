@@ -41,14 +41,23 @@
 }
 
 @media (max-width: 768px) {
+  :host {
+    display: flex;
+    flex: 1;
+    height: 100%;
+  }
+
   .container-main {
     width: 100%;
+    height: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .scrollable-list {
+      max-height: calc(100vh - 150px);
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
       padding: 20px 0;
     }
 
@@ -60,8 +69,17 @@
       border-top: 1px solid black;
       border-radius: 10px;
 
-      span {
-        font-size: 3rem;
+      button {
+        padding: 0;
+
+        span {
+          font-size: 3rem;
+          transition: color 0.1s;
+        }
+
+        &:active span {
+          color: #ff0000;
+        }
       }
     }
   }
