@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../core/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { LogOut, LucideAngularModule } from 'lucide-angular';
+import { ConfirmComponent } from '../modals/confirm/confirm.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, ConfirmComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  @ViewChild('logoutModal') logoutModal!: ConfirmComponent;
   readonly logOut = LogOut;
 
   constructor(
@@ -28,11 +30,19 @@ export class HeaderComponent {
     this.router.navigate(['profile']);
   }
 
-  logout(): void {
+  openLogoutModal(): void {
+    this.logoutModal.open();
+  }
+
+  confirmLogout(): void {
     this.loginService.logout();
     this.toast.success('Logout successful', 'Success');
     setTimeout(() => {
       this.router.navigate(['/login']);
     }, 1000);
+  }
+
+  cancelLogout(): void {
+    // Nenhuma ação necessária ao cancelar.
   }
 }

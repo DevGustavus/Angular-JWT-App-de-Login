@@ -13,8 +13,18 @@
       </div>
     </a>
 
-    <button class="container-icon" type="button" (click)="logout()">
+    <button class="container-icon" type="button" (click)="openLogoutModal()">
       <lucide-icon [name]="logOut" [size]="30" class="my-icon"></lucide-icon>
     </button>
   </div>
 </div>
+
+<app-confirm
+  #logoutModal
+  [title]="'Confirm Logout'"
+  [message]="'Are you sure you want to log out?'"
+  [confirmText]="'Logout'"
+  [cancelText]="'Cancel'"
+  (confirmed)="confirmLogout()"
+  (cancelled)="cancelLogout()">
+</app-confirm>

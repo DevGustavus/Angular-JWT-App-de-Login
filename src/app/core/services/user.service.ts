@@ -55,12 +55,18 @@ export class UserService {
     );
   }
 
-  deleteUserById(id: string): Observable<HttpResponse<void>> {
+  deleteUserById(
+    userId: string,
+    executorId: string
+  ): Observable<HttpResponse<void>> {
     const headers = this.getAuthHeaders();
 
-    return this.httpClient.delete<void>('/user/delete/' + id, {
-      headers,
-      observe: 'response',
-    });
+    return this.httpClient.delete<void>(
+      `/user/delete/${userId}?executorId=${executorId}`,
+      {
+        headers,
+        observe: 'response',
+      }
+    );
   }
 }

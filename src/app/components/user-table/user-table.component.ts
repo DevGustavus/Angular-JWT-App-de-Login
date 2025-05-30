@@ -15,6 +15,8 @@ import { User } from '../../core/models/user.model';
 import { LucideAngularModule, Trash2 } from 'lucide-angular';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { UserService } from '../../core/services/user.service';
+import { ConfirmComponent } from '../modals/confirm/confirm.component';
+import { LocalHostService } from '../../core/services/local-host.service';
 
 @Component({
   selector: 'app-user-table',
@@ -25,6 +27,7 @@ import { UserService } from '../../core/services/user.service';
     MatPaginatorModule,
     LucideAngularModule,
     MatExpansionModule,
+    ConfirmComponent,
   ],
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss'],
@@ -32,21 +35,30 @@ import { UserService } from '../../core/services/user.service';
 export class UserTableComponent implements AfterViewInit, OnInit {
   @Output() rowClicked = new EventEmitter<User>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(ConfirmComponent) confirmModal!: ConfirmComponent;
 
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
   users: User[] = [];
   visibleUsers: User[] = []; // visível no mobile
   loadIndex = 0;
   loadAmount = 10;
-
+  selectedUser?: User;
+  userRole: number = 1;
+  executorId = '';
   isMobile: boolean = false;
+
   readonly trash2 = Trash2;
 
   dataSource = new MatTableDataSource<User>([]);
 
   private readonly userService = inject(UserService);
+  private readonly localHostService = inject(LocalHostService);
 
   ngOnInit() {
+    const roleFromSession = this.localHostService.getSessionStorageItem('role');
+    this.userRole = roleFromSession ? parseInt(roleFromSession) : 1;
+    this.executorId = this.localHostService.getSessionStorageItem('id') ?? '';
+
     this.isMobile = window.innerWidth <= 768;
 
     this.userService.getAllUsers().subscribe({
@@ -76,23 +88,38 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  deleteUser(user: User): void {
-    if (confirm(`Are you sure you want to delete user ${user.name}?`)) {
-      this.userService.deleteUserById(user.id).subscribe({
-        next: () => {
-          this.users = this.users.filter(u => u.id !== user.id);
-          this.dataSource.data = this.users;
-        },
-        error: err => {
-          console.error('Error deleting user', err);
-        },
-      });
-    }
-  }
-
   loadMoreUsers(): void {
     const nextIndex = this.loadIndex + this.loadAmount;
     this.visibleUsers = this.users.slice(0, nextIndex);
     this.loadIndex = nextIndex;
+  }
+
+  showDeleteConfirm(user: User): void {
+    if (this.userRole === 2 && Number(user.role) !== 2) {
+      this.selectedUser = user;
+      this.confirmModal.open();
+    } else {
+      alert('Você não tem permissão para excluir este usuário.');
+    }
+  }
+
+  onConfirmDelete(): void {
+    if (!this.selectedUser) return;
+
+    this.userService
+      .deleteUserById(this.selectedUser.id, this.executorId)
+      .subscribe({
+        next: () => {
+          this.users = this.users.filter(u => u.id !== this.selectedUser!.id);
+          this.dataSource.data = this.users;
+          this.visibleUsers = this.visibleUsers.filter(
+            u => u.id !== this.selectedUser!.id
+          );
+          this.selectedUser = undefined;
+        },
+        error: err => {
+          console.error('Erro ao deletar usuário', err);
+        },
+      });
   }
 }
