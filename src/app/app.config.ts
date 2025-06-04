@@ -6,6 +6,7 @@ import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { apiPrefixInterceptor } from './core/interceptors/httpConnection.interceptor';
+import { authInterceptor } from './core/interceptors/authInterceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +14,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr(),
     provideHttpClient(
-      withInterceptors([apiPrefixInterceptor, loadingInterceptor])
+      withInterceptors([
+        apiPrefixInterceptor,
+        loadingInterceptor,
+        authInterceptor,
+      ])
     ),
   ],
 };
